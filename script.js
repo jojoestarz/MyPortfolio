@@ -1,28 +1,24 @@
 
+let themeSwitch = document.querySelector(".dark-mode-button");
+let darkMode = localStorage.getItem("dark-theme");
 
-let themeSwitch = document.querySelector(".ThemeBtn")
-
-let darkMode = localStorage.getItem('dark-theme')
-
-const enableDarkmode = () =>{
-    document.body.classList.add('dark-theme')    //adds class called darktheme to the body element
-    localStorage.setItem('dark-theme','active') //sets key value pair of strings to local storage(permanent)
-    themeSwitch.setAttribute("src","icons/sun.png") // replaces the image in the button with sun
-}
-const disableDarkmode = () =>{
-    document.body.classList.remove('dark-theme') //removes darktheme classes reverting to default
-    localStorage.setItem('dark-theme',null)   //nullifies local storage to keep default theme
-    themeSwitch.setAttribute("src","icons/moon.png") //replaces the image in the button with moon
+if (darkMode === "enabled") {
+    document.querySelector(".container").classList.add("dark-theme");
+    themeSwitch.setAttribute("src", "./icons/sun.png");
 }
 
-if(darkMode === "active") enableDarkmode()
+themeSwitch.addEventListener("click", () => {
+    const container = document.querySelector(".container");
+    const darkModeEnabled = container.classList.toggle("dark-theme");
 
-themeSwitch.addEventListener('click',()=>{
- darkMode = localStorage.getItem('dark-theme')
- darkMode !== 'active'? enableDarkmode(): disableDarkmode()
-
-
-})
+    if (darkModeEnabled) {
+        localStorage.setItem("dark-theme", "enabled");
+        themeSwitch.setAttribute("src", "./icons/sun.png");
+    } else {
+        localStorage.setItem("dark-theme", "disabled");
+        themeSwitch.setAttribute("src", "./icons/moon.png");
+    }
+});
 
 
 //! darkmode solution
